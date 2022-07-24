@@ -1,0 +1,10 @@
+spring:
+  couchbase:
+    host: localhost
+    username: enes
+    password: enesenes
+    bucket: Message
+server:
+  port: 8081
+
+
