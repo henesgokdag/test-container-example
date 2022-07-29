@@ -23,7 +23,6 @@ import static org.testcontainers.shaded.org.awaitility.Awaitility.await;
 @Testcontainers
 @ActiveProfiles("container")
 @SpringBootTest
-@ContextConfiguration(initializers = {CouchbaseTestContainer.Initializer.class})
 public class CouchbaseTestContainer {
     private static final DockerImageName COUCHBASE_IMAGE_ENTERPRISE = DockerImageName.parse("couchbase:enterprise")
             .asCompatibleSubstituteFor("couchbase/server")
@@ -35,15 +34,6 @@ public class CouchbaseTestContainer {
             .withCredentials("enes","enesenes")
             .withStartupTimeout(Duration.ofSeconds(90))
             .waitingFor(Wait.defaultWaitStrategy());
-
-    public static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext>{
-
-        @Override
-        public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
-            TestPropertyValues.of("spring.couchbase.host"+ container.getConnectionString())
-                    .applyTo(configurableApplicationContext.getEnvironment());
-        }
-    }
 
     @BeforeClass
     public static void beforeClass(){ container.start();}
