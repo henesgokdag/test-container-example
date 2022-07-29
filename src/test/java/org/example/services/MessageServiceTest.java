@@ -9,6 +9,7 @@ import org.example.repository.MessageRepository;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.mockito.Mockito.times;
 import static org.springframework.test.util.AssertionErrors.*;
 
 @RunWith(SpringRunner.class)
@@ -27,6 +28,7 @@ public class MessageServiceTest {
         messageService.sendMessage(message);
 
         //then
+        Mockito.verify(messageRepository,times(1)).save(message);
     }
 
     @Test
